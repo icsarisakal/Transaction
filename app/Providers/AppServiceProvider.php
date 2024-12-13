@@ -29,7 +29,7 @@ class AppServiceProvider extends ServiceProvider
                 'password' => env('REPORT_API_PASSWORD'),
             ]);
             if ($resp->json()["status"]=="APPROVED"){
-                Redis::set("apikey",trim($resp->json()["token"]), 'EX', 60*10);
+                Redis::set("apikey",trim($resp->json()["token"]), 'EX', 60*9);
             }
         }
         Http::macro('financial', function () use ($apikey) {
