@@ -17,7 +17,9 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::prefix("transactions")->group(function (){
-       Route::get("/",[TransactionController::class,'index'])->name("transaction.index");
+        Route::get("/",[TransactionController::class,'index'])->name("transaction.index");
+        Route::post("/filter",[TransactionController::class,'filter'])->name("transaction.filter");
+        Route::get("/{id}",[TransactionController::class,'show'])->name("transaction.show");
     });
 });
 

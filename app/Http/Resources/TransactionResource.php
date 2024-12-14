@@ -14,13 +14,14 @@ class TransactionResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
+
         return [
             "transactionId" => $this["transaction"]["merchant"]["transactionId"]??"",
             "transactionReferenceNo" => $this["transaction"]["merchant"]["referenceNo"]??"",
             "transactionOperation" => $this["transaction"]["merchant"]["operation"]??"",
             "acquirerName" => $this["acquirer"]["name"]??"",
-            "customerEmail" => $this["customerInfo"]["email"]??"",
-            "customerName" => $this["customerInfo"]["billingFirstName"]?? " " . $this["customerInfo"]["billingLastName"]??"",
+            "customerEmail" => !empty($this["customerInfo"])?$this["customerInfo"]["email"]??"":"",
+            "customerName" => !empty($this["customerInfo"])?$this["customerInfo"]["billingFirstName"]?? " " . $this["customerInfo"]["billingLastName"]??"":"",
             "merchantName" => $this["merchant"]["name"]??"",
             "merchantAmount" => $this["fx"]["merchant"]["convertedAmount"]??"" . $this["fx"]["merchant"]["convertedCurrency"]??"",
 
