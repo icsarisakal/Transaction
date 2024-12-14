@@ -12,12 +12,12 @@ class TransactionRepository implements \App\Interfaces\ITransaction
 
     public function getTransactions($filter = null)
     {
-
         $data = Http::financial()->post('/transaction/list', [
             'fromDate' => $filter['fromDate'] ?? '',
             'toDate' => $filter['toDate'] ?? '',
-            'merchantId' => $filter['merchantId'] ?? '',
-            'acquirerId' => $filter['acquirerId'] ?? '',
+            'merchant' => $filter['merchantId'] ?? '',
+            'acquirer' => $filter['acquirerId'] ?? '',
+            "operation" => isset($filter['operation'])&&!is_null($filter['operation']) ?[$filter['operation']]: null,
             'status' => $filter['status'] ?? '',
             'paymentMethod' => $filter['paymentMethod'] ?? '',
             'errorCode' => $filter['errorCode'] ?? '',

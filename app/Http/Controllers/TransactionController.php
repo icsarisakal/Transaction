@@ -33,6 +33,7 @@ class TransactionController extends Controller
             'merchantId' => $request->merchantId,
             'acquirerId' => $request->acquirerId,
             'status' => $request->status,
+            'operation' => $request->operation,
             'paymentMethod' => $request->paymentMethod,
             'errorCode' => $request->errorCode,
             'filterField' => $request->filterField,

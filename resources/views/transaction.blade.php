@@ -22,11 +22,11 @@ use Carbon\Carbon;
                                 @csrf
                                 <div class="mb-5">
                                     <label for="fromDate" class="block mb-2 text-sm font-medium text-gray-900">{{__("From Date")}}</label>
-                                    <input type="date" name="fromDate" value="{{Carbon::now()->subYear(10)->format("Y-m-d")}}" id="fromDate" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " required />
+                                    <input type="date" name="fromDate" value="{{Carbon::now()->subYear(10)->format("Y-m-d")}}" id="fromDate" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " />
                                 </div>
                                 <div class="mb-5">
                                     <label for="toDate" class="block mb-2 text-sm font-medium text-gray-900">{{__("To Date")}}</label>
-                                    <input type="date" name="toDate" value="{{Carbon::now()->format("Y-m-d")}}" id="toDate" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " required />
+                                    <input type="date" name="toDate" value="{{Carbon::now()->format("Y-m-d")}}" id="toDate" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " />
                                 </div>
                                 <div class="mb-5">
                                     <label for="merchantId" class="block mb-2 text-sm font-medium text-gray-900">{{__("Merchant ID")}}</label>
@@ -57,12 +57,28 @@ use Carbon\Carbon;
                                         <option>STORED</option>
                                     </select>
                                 </div>
+
+                                <div class="mb-5">
+                                    <label for="paymentMethod" class="block mb-2 text-sm font-medium text-gray-900">{{__("Payment Method")}}</label>
+                                    <select id="paymentMethod" name="paymentMethod" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+                                        <option></option>
+                                        <option>CREDITCARD</option>
+                                        <option>CUP</option>
+                                        <option>IDEAL</option>
+                                        <option>GIROPAY</option>
+                                        <option>MISTERCASH</option>
+                                        <option>STORED</option>
+                                        <option>PAYTOCARD</option>
+                                        <option>CEPBANK</option>
+                                        <option>CITADEL</option>
+                                    </select>
+                                </div>
                                 <div class="mb-5">
                                     <hr>
                                 </div>
                                 <div class="mb-5">
                                     <label for="field" class="block mb-2 text-sm font-medium text-gray-900">{{__("Field")}}</label>
-                                    <select id="field" name="field" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+                                    <select id="field" name="filterField" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
                                         <option></option>
                                         <option>Transaction UUID</option>
                                         <option>Customer Email</option>
@@ -73,7 +89,7 @@ use Carbon\Carbon;
                                 </div>
                                 <div class="mb-5">
                                     <label for="fieldValue" class="block mb-2 text-sm font-medium text-gray-900">{{__("Value")}}</label>
-                                    <input type="text" name="fieldValue" id="fieldValue" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " />
+                                    <input type="text" name="filterValue" id="fieldValue" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " />
                                 </div>
                                 <div class="mb-5">
                                     <button style="width:100%" type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-100  px-5 py-2.5 text-center ">{{__("Search")}}</button>
@@ -354,9 +370,9 @@ use Carbon\Carbon;
                         $("tbody").append(`
                             <tr onclick="console.log({{$key}})" class="bg-white border-b hover:bg-gray-50 ">
                                 <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
-                                    ${transaction.transactionId} <svg fill="#000000" width="10" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M14 3.5L8.5 9 7 7.5 12.5 2H10V0h6v6h-2V3.5zM6 0v2H2v12h12v-4h2v6H0V0h6z" fill-rule="evenodd"/>
-                                            </svg>
+                                    <a onclick="modalOpener('${transaction.transactionId}')" href="javascript:void(0)" data-transaction-id="">${transaction.transactionId} <svg fill="#000000" width="10" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M14 3.5L8.5 9 7 7.5 12.5 2H10V0h6v6h-2V3.5zM6 0v2H2v12h12v-4h2v6H0V0h6z" fill-rule="evenodd"/>
+                                    </svg></a>
                                 </th>
                                 <td class="px-6 py-4">
                                     ${transaction.transactionReferenceNo}
