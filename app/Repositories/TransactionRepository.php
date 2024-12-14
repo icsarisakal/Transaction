@@ -32,7 +32,7 @@ class TransactionRepository implements \App\Interfaces\ITransaction
                 'meta' => (new TransactionMetaResource($dataResp))->response()->getData(true)
             ];
         } catch (\Exception $e) {
-            dd($e,$dataResp);
+            throw new \Exception($e->getMessage());
         }
     }
 
