@@ -24,7 +24,7 @@ class AppServiceProvider extends ServiceProvider
         //
         $apikey=Redis::get("apikey");
         if (!$apikey){
-            $resp=Http::post(env('REPORT_API_URL').'/merchant/user/login', [
+            $resp=Http::retry(3)->post(env('REPORT_API_URL').'/merchant/user/login', [
                 'email' => env('REPORT_API_USERNAME'),
                 'password' => env('REPORT_API_PASSWORD'),
             ]);
