@@ -124,7 +124,9 @@ use Carbon\Carbon;
                                 <tr onclick="console.log({{$key}})" class="bg-white border-b hover:bg-gray-50 ">
 
                                     <th scope="row" class="px-6 py-4 font-bold text-gray-900 whitespace-nowrap">
-                                        <a onclick="modalOpener('{{ $transaction['transactionId'] }}')" href="javascript:void(0)" data-transaction-id="">{{ $transaction['transactionId'] }}</a>
+                                        <a onclick="modalOpener('{{ $transaction['transactionId'] }}')" href="javascript:void(0)" data-transaction-id="">{{ $transaction['transactionId'] }} <svg fill="#000000" width="10" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M14 3.5L8.5 9 7 7.5 12.5 2H10V0h6v6h-2V3.5zM6 0v2H2v12h12v-4h2v6H0V0h6z" fill-rule="evenodd"/>
+                                            </svg></a>
                                     </th>
                                     <td class="px-6 py-4">
                                         {{ $transaction["transactionReferenceNo"] }}
@@ -338,7 +340,6 @@ use Carbon\Carbon;
             e.preventDefault();
             let data = {};
             $("form").serializeArray().map((x)=>data[x.name] = x.value);
-        //     ajax request
             $.ajax({
                 url: "/transactions/filter",
                 type: "POST",
@@ -353,7 +354,9 @@ use Carbon\Carbon;
                         $("tbody").append(`
                             <tr onclick="console.log({{$key}})" class="bg-white border-b hover:bg-gray-50 ">
                                 <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
-                                    ${transaction.transactionId}
+                                    ${transaction.transactionId} <svg fill="#000000" width="10" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M14 3.5L8.5 9 7 7.5 12.5 2H10V0h6v6h-2V3.5zM6 0v2H2v12h12v-4h2v6H0V0h6z" fill-rule="evenodd"/>
+                                            </svg>
                                 </th>
                                 <td class="px-6 py-4">
                                     ${transaction.transactionReferenceNo}

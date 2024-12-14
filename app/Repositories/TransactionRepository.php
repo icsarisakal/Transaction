@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Http\Resources\TransactionMetaResource;
 use App\Http\Resources\TransactionResource;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Http;
 
 class TransactionRepository implements \App\Interfaces\ITransaction
@@ -45,7 +46,28 @@ class TransactionRepository implements \App\Interfaces\ITransaction
 
     public function reportTransactions($filter = null)
     {
-        // TODO: Implement reportTransactions() method.
+        $data = Http::financial()->post('/transactions/report', [
+            'fromDate' => $filter['fromDate'] ?? '',
+            'toDate' => $filter['toDate'] ?? '',
+        ]);
+        $dataResp = $data->json();
+        $labels = [];
+        $values = [];
+        $counts = [];
+        Arr::map($dataResp['response'], function ($item) use (&$labels, &$values, &$counts) {
+            $labels[] = $item['currency'];
+            $values[] = $item['total'];
+            $counts[] = $item['count'];
+        });
+        return [
+            "raw" => $dataResp,
+            "proceeds"=>[
+                "labels"=>$labels,
+                "values"=>$values,
+                "counts"=>$counts
+            ],
+            "status"=>$dataResp['status']??[],
+        ];
     }
 
     public function getClient($id)

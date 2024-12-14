@@ -50,5 +50,13 @@ class TransactionController extends Controller
         return response()->json($data);
     }
 
+    public function report(Request $request){
+        $data=$this->transactionInterface->reportTransactions([
+            'fromDate' => $request->fromDate,
+            'toDate' => $request->toDate,
+        ]);
+        return response()->json($data);
+    }
+
 
 }

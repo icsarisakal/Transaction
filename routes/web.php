@@ -19,6 +19,7 @@ Route::middleware('auth')->group(function () {
     Route::prefix("transactions")->group(function (){
         Route::get("/",[TransactionController::class,'index'])->name("transaction.index");
         Route::post("/filter",[TransactionController::class,'filter'])->name("transaction.filter");
+        Route::post("/report",[TransactionController::class,'report'])->name("transaction.report");
         Route::get("/{id}",[TransactionController::class,'show'])->name("transaction.show");
     });
 });
